@@ -1,4 +1,4 @@
-package com.xunji.xunjidemo;
+package com.xunji;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;

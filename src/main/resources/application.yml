@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/xunji?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+xunji:
+  jwt:
+    admin-secret-key: xunji
+    admin-ttl: 7200000
+    admin-token-name: token
+    user-secret-key: itcast
+    user-token-name: authentication
+    user-ttl: 7200000

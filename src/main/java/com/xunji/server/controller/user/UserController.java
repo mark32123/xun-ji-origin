@@ -1,5 +1,9 @@
 package com.xunji.server.controller.user;
 
+import com.xunji.common.properties.JwtProperties;
+import com.xunji.common.result.Result;
+import com.xunji.common.utils.JwtUtil;
+import com.xunji.pojo.dto.UserLoginDTO;
 import com.xunji.pojo.entity.User;
 import com.xunji.pojo.vo.UserLogin;
 import com.xunji.server.service.UserService;
@@ -25,28 +29,33 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtProperties jwtProperties;
     /**
      * 用户登录
      *
-     * @param userLogin 用户登录信息
+     * @param userLoginDTO 用户登录信息
      * @return 登录结果
      */
-    @PostMapping("/login")
-    @ApiOperation("用户登录")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody UserLogin userLogin) {
+    @PostMapping("/app/login")
+    @ApiOperation("App用户登录")
+    public Result<UserLogin> appLogin(@RequestBody UserLoginDTO userLoginDTO) {
+        log.info("App用户登录, 参数: {}", userLoginDTO);
+
         // 调用业务层登录方法
-        User user = userService.login(userLogin);
+        User user = userService.appLogin(userLoginDTO);
 
-        Map<String, Object> result = new HashMap<>();
-        if (user != null) {
-            result.put("success", true);
-            result.put("message", "登录成功");
-            result.put("user", user);
-        } else {
-            result.put("success", false);
-            result.put("message", "用户名或密码错误");
-        }
+        //jwt令牌
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("USER_ID",user.getId());
+        String jwt = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
 
-        return ResponseEntity.ok(result);
+        UserLogin userLoginVO = UserLogin.builder()
+                .id(user.getId())
+                .token(jwt)
+                .build();
+
+        return Result.success(userLoginVO);
     }
+
 }
