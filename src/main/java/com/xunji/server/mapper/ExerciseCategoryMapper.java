@@ -14,6 +14,6 @@ public interface ExerciseCategoryMapper {
      * @param type
      * @return
      */
-    @Select("select * from exercise_category where type = #{type}")
+    @Select("select * from exercise_category where name = #{name}")
     List<ExerciseCategory> list(Integer type);
 }

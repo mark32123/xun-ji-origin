@@ -1,5 +1,6 @@
 package com.xunji.server.service.impl;
 
+import com.xunji.pojo.dto.ExerciseDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.mapper.ExerciseMapper;
@@ -7,6 +8,7 @@ import com.xunji.server.service.ExerciseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +21,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     private ExerciseMapper exerciseMapper;
 
     /**
-     * 查询动作
+     * 用户查询动作
      *
      * @return
      */
@@ -39,5 +41,17 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
 
         return exerciseVOList;
+    }
+
+    /**
+     * 教练添加动作
+     *
+     * @param exerciseDTO
+     */
+    @Transactional
+    public void add(ExerciseDTO exerciseDTO) {
+        Exercise exercise = new Exercise();
+        BeanUtils.copyProperties(exerciseDTO, exercise);
+        exerciseMapper.add(exercise);
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController("userExerciseCategoryController")
-@RequestMapping("/api/user/exerciseCategory")
+@RequestMapping("/user/exerciseCategory")
 @Api(tags = "C端-训练动作分类接口")
 public class ExerciseCategoryController {
 

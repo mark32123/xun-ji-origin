@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController("userExerciseController")
-@RequestMapping("/api/user/exercise")
+@RequestMapping("/user/exercise")
 @Slf4j
 @Api(tags = "C端-训练动作浏览接口")
 public class ExerciseController {
