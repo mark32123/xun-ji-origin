@@ -65,4 +65,11 @@ public interface ExerciseMapper {
      */
     @Select("select * from exercise_action where category_id = #{categoryId}")
     List<Exercise> list(Long categoryId);
+
+    /**
+     * 启用或禁用动作
+     * @param exercise
+     */
+    @Update("update exercise_action set status = #{status} where id = #{id}")
+    void updateStatus(Exercise exercise);
 }

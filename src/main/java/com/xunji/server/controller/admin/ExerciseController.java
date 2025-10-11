@@ -97,4 +97,15 @@ public class ExerciseController {
         return Result.success(list);
     }
 
+    /**
+     * 动作启用与禁用
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("动作启用与禁用")
+    public Result startOrStop(@PathVariable Integer status,Long id){
+        log.info("动作启用与禁用,参数:{}",id);
+        exerciseService.startOrStop(status,id);
+        return Result.success();
+    }
+
 }

@@ -55,4 +55,11 @@ public interface ExerciseService {
      * @return
      */
     List<Exercise> list(Long categoryId);
+
+    /**
+     * 启动或禁用动作
+     * @param status
+     * @param id
+     */
+    void startOrStop(Integer status, Long id);
 }

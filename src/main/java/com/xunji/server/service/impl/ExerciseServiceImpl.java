@@ -135,4 +135,25 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exerciseMapper.list(categoryId);
 
     }
+
+    /**
+     * 动作启用与禁用
+     * @param status
+     * @param id
+     */
+    @Transactional
+    public void startOrStop(Integer status, Long id) {
+
+        Exercise exercise = Exercise.builder()
+                .id(id)
+                .status(status)
+                .build();
+        exerciseMapper.updateStatus(exercise);
+
+        //TODO :判断是不是禁用操作，若果是，则需要把关联训练计划也禁用
+        if(status == StatusConstant.DISABLE){}
+
+    }
+
+
 }
