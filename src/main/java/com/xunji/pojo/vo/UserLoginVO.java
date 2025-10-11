@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLogin implements Serializable {
+public class UserLoginVO implements Serializable {
 
     private Long id;
     private String openid;

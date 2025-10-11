@@ -2,8 +2,6 @@ package com.xunji.server.service;
 
 import com.xunji.pojo.dto.UserLoginDTO;
 import com.xunji.pojo.entity.User;
-import com.xunji.pojo.vo.UserLogin;
-import org.springframework.stereotype.Service;
 
 public interface UserService {
 

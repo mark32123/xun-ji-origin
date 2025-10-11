@@ -3,7 +3,6 @@ package com.xunji.server.service.impl;
 import com.xunji.common.exception.LoginFailedException;
 import com.xunji.pojo.dto.UserLoginDTO;
 import com.xunji.pojo.entity.User;
-import com.xunji.pojo.vo.UserLogin;
 import com.xunji.server.mapper.UserMapper;
 import com.xunji.server.service.UserService;
 import lombok.extern.slf4j.Slf4j;

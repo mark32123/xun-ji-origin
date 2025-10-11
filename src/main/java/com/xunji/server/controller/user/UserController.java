@@ -5,13 +5,12 @@ import com.xunji.common.result.Result;
 import com.xunji.common.utils.JwtUtil;
 import com.xunji.pojo.dto.UserLoginDTO;
 import com.xunji.pojo.entity.User;
-import com.xunji.pojo.vo.UserLogin;
+import com.xunji.pojo.vo.UserLoginVO;
 import com.xunji.server.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,7 @@ public class UserController {
      */
     @PostMapping("/app/login")
     @ApiOperation("App用户登录")
-    public Result<UserLogin> appLogin(@RequestBody UserLoginDTO userLoginDTO) {
+    public Result<UserLoginVO> appLogin(@RequestBody UserLoginDTO userLoginDTO) {
         log.info("App用户登录, 参数: {}", userLoginDTO);
 
         // 调用业务层登录方法
@@ -50,7 +49,7 @@ public class UserController {
         claims.put("USER_ID",user.getId());
         String jwt = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
 
-        UserLogin userLoginVO = UserLogin.builder()
+        UserLoginVO userLoginVO = UserLoginVO.builder()
                 .id(user.getId())
                 .token(jwt)
                 .build();
