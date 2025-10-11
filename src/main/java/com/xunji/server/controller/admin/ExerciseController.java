@@ -61,6 +61,17 @@ public class ExerciseController {
         return Result.success();
     }
 
+    /**
+     * 修改动作
+     */
+
+    @PutMapping("/update")
+    @ApiOperation("修改动作")
+    public Result update(@RequestBody ExerciseDTO exerciseDTO){
+        log.info("修改动作,参数:{}",exerciseDTO);
+        exerciseService.update(exerciseDTO);
+        return Result.success();
+    }
 
 
 }

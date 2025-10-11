@@ -9,6 +9,7 @@ import com.xunji.server.annotation.AutoFill;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -49,4 +50,11 @@ public interface ExerciseMapper {
      */
     @Delete("delete from exercise_action where id = #{id}")
     void delete(Long id);
+
+    /**
+     * 修改动作
+     * @param exercise
+     */
+    @Update("update exercise_action set name = #{name},description = #{description},image = #{image},status = #{status} where id = #{id}")
+    void update(Exercise exercise);
 }

@@ -35,4 +35,10 @@ public interface ExerciseService {
      * @param ids
      */
     void delete(List<Long> ids);
+
+    /**
+     * 教练修改动作
+     * @param exerciseDTO
+     */
+    void update(ExerciseDTO exerciseDTO);
 }

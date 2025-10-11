@@ -96,4 +96,16 @@ public class ExerciseServiceImpl implements ExerciseService {
         ids.forEach(id -> exerciseMapper.delete(id));
 
     }
+
+    /**
+     * 教练修改动作
+     * @param exerciseDTO
+     */
+    @Override
+    public void update(ExerciseDTO exerciseDTO) {
+
+        Exercise exercise = new Exercise();
+        BeanUtils.copyProperties(exerciseDTO, exercise);
+        exerciseMapper.update(exercise);
+    }
 }
