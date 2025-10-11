@@ -108,4 +108,18 @@ public class ExerciseServiceImpl implements ExerciseService {
         BeanUtils.copyProperties(exerciseDTO, exercise);
         exerciseMapper.update(exercise);
     }
+
+    /**
+     * 教练根据id查询动作
+     * @param id
+     * @return
+     */
+    @Override
+    public ExerciseVO getById(Long id) {
+        Exercise exercise = exerciseMapper.getById(id);
+
+        ExerciseVO exerciseVO = new ExerciseVO();
+        BeanUtils.copyProperties(exercise, exerciseVO);
+        return exerciseVO;
+    }
 }

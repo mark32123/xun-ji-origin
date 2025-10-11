@@ -4,6 +4,7 @@ import com.xunji.common.result.PageResult;
 import com.xunji.common.result.Result;
 import com.xunji.pojo.dto.ExerciseDTO;
 import com.xunji.pojo.dto.ExercisePageQueryDTO;
+import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.service.ExerciseService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -71,6 +72,17 @@ public class ExerciseController {
         log.info("修改动作,参数:{}",exerciseDTO);
         exerciseService.update(exerciseDTO);
         return Result.success();
+    }
+
+    /**
+     * 根据id查询动作
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询动作")
+    public Result<ExerciseVO> getById(@RequestBody Long id){
+        log.info("根据id查询动作,参数:{}",id);
+        ExerciseVO exerciseVO = exerciseService.getById(id);
+        return Result.success(exerciseVO);
     }
 
 

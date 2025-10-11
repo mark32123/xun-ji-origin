@@ -41,4 +41,11 @@ public interface ExerciseService {
      * @param exerciseDTO
      */
     void update(ExerciseDTO exerciseDTO);
+
+    /**
+     * 教练根据id查询动作
+     * @param id
+     * @return
+     */
+    ExerciseVO getById(Long id);
 }
