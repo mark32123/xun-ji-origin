@@ -15,13 +15,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Exercise {
+    //主键
     private Long id;
 
     //动作名称
     private String name;
 
     //动作分类id
-    private Long exerciseId;
+    private Long categoryId;
 
     //图片
     private String image;

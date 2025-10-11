@@ -24,13 +24,14 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Autowired
     private ExerciseMapper exerciseMapper;
+    @Autowired
+    private ExerciseService exerciseService;
 
     /**
      * 用户查询动作
      *
      * @return
      */
-    @Override
     public List<ExerciseVO> selectExercise(Exercise exercise) {
         //查询数据库数据到这个集合中
         List<Exercise> exerciseList = exerciseMapper.selectExercise(exercise);
@@ -101,7 +102,6 @@ public class ExerciseServiceImpl implements ExerciseService {
      * 教练修改动作
      * @param exerciseDTO
      */
-    @Override
     public void update(ExerciseDTO exerciseDTO) {
 
         Exercise exercise = new Exercise();
@@ -114,12 +114,25 @@ public class ExerciseServiceImpl implements ExerciseService {
      * @param id
      * @return
      */
-    @Override
     public ExerciseVO getById(Long id) {
         Exercise exercise = exerciseMapper.getById(id);
 
         ExerciseVO exerciseVO = new ExerciseVO();
         BeanUtils.copyProperties(exercise, exerciseVO);
         return exerciseVO;
+    }
+
+    /**
+     * 根据动作分类id查询动作
+     * @param categoryId
+     * @return
+     */
+    public List<Exercise> list(Long categoryId) {
+        Exercise exercise = Exercise.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return exerciseMapper.list(categoryId);
+
     }
 }

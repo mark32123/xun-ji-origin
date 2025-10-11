@@ -48,4 +48,11 @@ public interface ExerciseService {
      * @return
      */
     ExerciseVO getById(Long id);
+
+    /**
+     * 教练根据分类id查询动作
+     * @param categoryId
+     * @return
+     */
+    List<Exercise> list(Long categoryId);
 }

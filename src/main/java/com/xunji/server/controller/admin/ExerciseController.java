@@ -4,6 +4,7 @@ import com.xunji.common.result.PageResult;
 import com.xunji.common.result.Result;
 import com.xunji.pojo.dto.ExerciseDTO;
 import com.xunji.pojo.dto.ExercisePageQueryDTO;
+import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.service.ExerciseService;
 import io.swagger.annotations.Api;
@@ -85,5 +86,15 @@ public class ExerciseController {
         return Result.success(exerciseVO);
     }
 
+    /**
+     * 根据动作分类id查询动作
+     */
+    @GetMapping("/list")
+    @ApiOperation("根据动作分类id查询动作")
+    public Result<List<Exercise>> list(Long categoryId){
+        log.info("根据动作分类id查询动作,参数:{}",categoryId);
+        List<Exercise> list = exerciseService.list(categoryId);
+        return Result.success(list);
+    }
 
 }
