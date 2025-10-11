@@ -23,6 +23,9 @@ public class ExerciseCategory {
     //顺序
     private Integer sort;
 
+    //分类状态 0标识禁用 1表示启用
+    private Integer status;
+
     //创建时间
     private LocalDateTime createTime;
 

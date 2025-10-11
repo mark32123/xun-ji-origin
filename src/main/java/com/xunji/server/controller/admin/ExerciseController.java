@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 训练动作管理
  */
@@ -23,8 +25,6 @@ public class ExerciseController {
 
     @Autowired
     private ExerciseService exerciseService;
-
-
 
     /**
      * 添加训练动作
@@ -48,6 +48,17 @@ public class ExerciseController {
         log.info("动作分页查询,参数:{}",exercisePageQueryDTO);
         PageResult pageResult = exerciseService.pageQuery(exercisePageQueryDTO);
         return Result.success(pageResult);
+    }
+
+    /**
+     * 删除动作
+     */
+    @DeleteMapping("/delete")
+    @ApiOperation("批量删除动作")
+    public Result delete(@RequestParam List<Long> id){
+        log.info("删除动作,参数:{}",id);
+        exerciseService.delete(id);
+        return Result.success();
     }
 
 

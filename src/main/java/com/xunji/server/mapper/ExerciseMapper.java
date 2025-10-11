@@ -6,6 +6,7 @@ import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.annotation.AutoFill;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -33,4 +34,19 @@ public interface ExerciseMapper {
      * @return
      */
     Page<ExerciseVO> pageQuery(ExercisePageQueryDTO exercisePageQueryDTO);
+
+    /**
+     * 根据id查询动作
+     * @param id
+     * @return
+     */
+    @Select("select * from exercise_action where id = #{id}")
+    Exercise getById(Long id);
+
+    /**
+     * 删除动作
+     * @param id
+     */
+    @Delete("delete from exercise_action where id = #{id}")
+    void delete(Long id);
 }

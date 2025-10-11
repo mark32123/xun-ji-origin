@@ -29,4 +29,10 @@ public interface ExerciseService {
      * @return
      */
     PageResult pageQuery(ExercisePageQueryDTO exercisePageQueryDTO);
+
+    /**
+     * 教练删除动作
+     * @param ids
+     */
+    void delete(List<Long> ids);
 }

@@ -29,6 +29,8 @@ public class Exercise {
     //描述信息
     private String description;
 
+    //0 禁用 1 开启
+    private Integer status;
 
     private LocalDateTime createTime;
 

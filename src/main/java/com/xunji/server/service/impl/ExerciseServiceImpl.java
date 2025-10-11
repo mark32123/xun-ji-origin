@@ -2,6 +2,7 @@ package com.xunji.server.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.xunji.common.constant.StatusConstant;
 import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.ExerciseDTO;
 import com.xunji.pojo.dto.ExercisePageQueryDTO;
@@ -70,5 +71,29 @@ public class ExerciseServiceImpl implements ExerciseService {
         Page<ExerciseVO> page = exerciseMapper.pageQuery(exercisePageQueryDTO);
         PageResult pageResult = new PageResult(page.getTotal(), page);
         return pageResult;
+    }
+
+    /**
+     * 教练删除动作
+     * @param ids
+     */
+    //TODO: 删除动作中关联训练计划功能
+    @Transactional
+    public void delete(List<Long> ids) {
+
+        //判断当前动作是否开启，开启则不能删除
+        ids.forEach(id -> {
+            Exercise exercise = exerciseMapper.getById(id);
+            if (exercise.getStatus() == StatusConstant.ENABLE) {
+                throw new RuntimeException("当前动作已开启，不能删除");
+            }
+        });
+
+        //判断当前动作是否被计划使用，被计划使用则不能删除
+
+
+        //删除动作
+        ids.forEach(id -> exerciseMapper.delete(id));
+
     }
 }
