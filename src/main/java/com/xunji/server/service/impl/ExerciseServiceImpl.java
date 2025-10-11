@@ -1,6 +1,10 @@
 package com.xunji.server.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.ExerciseDTO;
+import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.mapper.ExerciseMapper;
@@ -53,5 +57,18 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise exercise = new Exercise();
         BeanUtils.copyProperties(exerciseDTO, exercise);
         exerciseMapper.add(exercise);
+    }
+
+    /**
+     * 教练动作分页查询
+     *
+     * @param exercisePageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(ExercisePageQueryDTO exercisePageQueryDTO) {
+        PageHelper.startPage(exercisePageQueryDTO.getPage(), exercisePageQueryDTO.getPageSize());
+        Page<ExerciseVO> page = exerciseMapper.pageQuery(exercisePageQueryDTO);
+        PageResult pageResult = new PageResult(page.getTotal(), page);
+        return pageResult;
     }
 }

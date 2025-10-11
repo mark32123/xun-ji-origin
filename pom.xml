@@ -61,6 +61,15 @@
             <version>3.0.5</version>
             <scope>test</scope>
         </dependency>
+        <!--        添加PageHelper分页插件-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.4.6</version>
+        </dependency>
+
+
+
         <!-- Swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>

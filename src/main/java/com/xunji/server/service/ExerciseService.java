@@ -1,6 +1,8 @@
 package com.xunji.server.service;
 
+import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.ExerciseDTO;
+import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 
@@ -20,4 +22,11 @@ public interface ExerciseService {
      * @param exerciseDTO
      */
     void add(ExerciseDTO exerciseDTO);
+
+    /**
+     * 分页查询
+     * @param exercisePageQueryDTO
+     * @return
+     */
+    PageResult pageQuery(ExercisePageQueryDTO exercisePageQueryDTO);
 }

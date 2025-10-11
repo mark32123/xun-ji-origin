@@ -4,23 +4,37 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xunji.server.mapper.ExerciseMapper">
 
-    <select id="list" resultType="Exercise" parameterType="Exercise">
-            select * from exercise_action
-            <where>
-                <if test="exerciseId != null">
-                    and exercise_id = #{exerciseId}
-                </if>
-                <if test="exerciseName != null">
-                    and exercise_name = #{exerciseName}
-                </if>
-                <if test="exerciseCategoryId != null">
-                    and exercise_category_id = #{exerciseCategoryId}
-                </if>
-                <if test="exerciseDescription != null">
-                    and exercise_description = #{exerciseDescription}
-                </if>
-            </where>
-            order by created_time desc
+    <select id="list" resultType="com.xunji.pojo.entity.Exercise" parameterType="com.xunji.pojo.entity.Exercise">
+        select * from exercise_action
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+        </where>
+        order by created_time desc
     </select>
 
+    <select id="pageQuery" resultType="com.xunji.pojo.vo.ExerciseVO">
+        select ea.*, ec.name as categoryName
+        from exercise_action ea
+        left outer join exercise_category ec on ea.category_id = ec.id
+        <where>
+            <if test="name != null and name != ''">
+                and ea.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and ea.category_id = #{categoryId}
+            </if>
+        </where>
+        order by ea.created_time desc
+    </select>
 </mapper>
