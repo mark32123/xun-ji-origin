@@ -14,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class planVO {
+public class PlanVO {
 
     private Long id;
 

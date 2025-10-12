@@ -1,0 +1,20 @@
+package com.xunji.server.service;
+
+import com.xunji.pojo.entity.Plan;
+import com.xunji.pojo.vo.ExerciseItemVO;
+
+import java.util.List;
+
+public interface PlanService {
+    /**
+     * 条件查询
+     * @param plan
+     * @return
+     */
+    List<Plan> list(Plan plan);
+
+    /**
+     * 根据训练计划id查询动作
+     */
+    List<ExerciseItemVO> exerciseList(Long id);
+}
