@@ -2,8 +2,10 @@ package com.xunji.pojo.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ExerciseCategoryPageQueryDTO {
+public class ExerciseCategoryPageQueryDTO implements Serializable {
     //页码
     private int page;
 

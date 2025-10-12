@@ -108,4 +108,8 @@ public class ExerciseController {
         return Result.success();
     }
 
+    /**
+     * 优化：redis  清理缓存数据
+     */
+
 }

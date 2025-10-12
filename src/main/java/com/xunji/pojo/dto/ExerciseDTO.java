@@ -3,9 +3,11 @@ package com.xunji.pojo.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Builder
-public class ExerciseDTO {
+public class ExerciseDTO implements Serializable {
     private Long id;
     //动作名称
     private String name;
