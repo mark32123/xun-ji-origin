@@ -1,6 +1,8 @@
 package com.xunji.server.service;
 
+import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.PlanDTO;
+import com.xunji.pojo.dto.PlanPageQueryDTO;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.vo.ExerciseItemVO;
 
@@ -33,4 +35,9 @@ public interface PlanService {
      * 删除计划
      */
     void deletePlan(List<Long> ids);
+
+    /**
+     * 训练计划分页查询
+     */
+    PageResult pageQuery(PlanPageQueryDTO planPageQueryDTO);
 }

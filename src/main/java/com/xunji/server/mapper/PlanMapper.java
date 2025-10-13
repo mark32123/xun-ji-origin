@@ -1,9 +1,12 @@
 package com.xunji.server.mapper;
 
+import com.github.pagehelper.Page;
+import com.xunji.pojo.dto.PlanPageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
 import com.xunji.pojo.vo.ExerciseItemVO;
+import com.xunji.pojo.vo.PlanVO;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -57,4 +60,10 @@ public interface PlanMapper {
      */
     @Delete("DELETE FROM plan WHERE id = #{planId}")
     void deleteById(Long planId);
+
+    /**
+     * 教练分页查询计划
+     */
+    @Select("SELECT id, name, description, status, create_time, update_time, create_user, update_user, category_id FROM plan WHERE name LIKE CONCAT('%', #{name}, '%') AND status = #{status} AND category_id = #{categoryId} ORDER BY update_time DESC")
+    Page<PlanVO> pageQuery(PlanPageQueryDTO planPageQueryDTO);
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class planPageQueryDTO implements Serializable {
+public class PlanPageQueryDTO implements Serializable {
     private int page;
 
     private int pageSize;

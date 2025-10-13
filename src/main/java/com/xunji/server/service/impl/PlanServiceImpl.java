@@ -1,8 +1,12 @@
 package com.xunji.server.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xunji.common.constant.MessageConstant;
 import com.xunji.common.constant.StatusConstant;
+import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.PlanDTO;
+import com.xunji.pojo.dto.PlanPageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
@@ -109,6 +113,20 @@ public class PlanServiceImpl implements PlanService {
             //删除计划关联数据
             planforExerciseMapper.deleteByPlanId(planId);
         });
+    }
+
+    /**
+     * 分页查询
+     * @param planPageQueryDTO
+     * @return
+     */
+    public PageResult pageQuery(PlanPageQueryDTO planPageQueryDTO) {
+        int pageNum = planPageQueryDTO.getPage();
+        int pageSize = planPageQueryDTO.getPageSize();
+
+        PageHelper.startPage(pageNum, pageSize);
+        Page<PlanVO> page = planMapper.pageQuery(planPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
     }
 
 

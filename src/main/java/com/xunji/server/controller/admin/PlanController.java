@@ -1,7 +1,13 @@
 package com.xunji.server.controller.admin;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.xunji.common.result.PageResult;
 import com.xunji.common.result.Result;
 import com.xunji.pojo.dto.PlanDTO;
+import com.xunji.pojo.dto.PlanPageQueryDTO;
+import com.xunji.pojo.vo.PlanVO;
+import com.xunji.server.mapper.PlanMapper;
 import com.xunji.server.service.PlanService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +25,8 @@ public class PlanController {
 
     @Autowired
     private PlanService planService;
+    @Autowired
+    private PlanMapper planMapper;
 
 
     /**
@@ -53,5 +61,16 @@ public class PlanController {
         planService.startOrStop(status,id);
         return Result.success();
     }
+
+    /**
+     *分页查询训练计划
+     */
+    @RequestMapping("/page")
+    @ApiOperation("分页查询训练计划")
+    public Result<PageResult> pageQuery(PlanPageQueryDTO planPageQueryDTO){
+        PageResult pageResult = planService.pageQuery(planPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
 
 }
