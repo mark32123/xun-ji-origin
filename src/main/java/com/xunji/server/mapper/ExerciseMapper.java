@@ -72,4 +72,12 @@ public interface ExerciseMapper {
      */
     @Update("update exercise_action set status = #{status} where id = #{id}")
     void updateStatus(Exercise exercise);
+
+    /**
+     * 根据计划id查询动作
+     * @param id
+     * @return
+     */
+    @Select("select * from exercise_action where id in (select exercise_id from plan_for_exercise where plan_id = #{id})")
+    List<Exercise> listExercise(Long id);
 }

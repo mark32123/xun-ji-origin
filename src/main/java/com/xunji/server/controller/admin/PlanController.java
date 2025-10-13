@@ -8,10 +8,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController("adminPlanController")
 @RequestMapping("/admin/plan")
@@ -34,15 +33,15 @@ public class PlanController {
         return Result.success();
     }
 
-//    /**
-//     * 批量删除训练计划
-//     */
-//    @RequestMapping("/delete")
-//    @ApiOperation("删除训练计划")
-//    public Result deletePlan(Long id){
-//        planService.deletePlan(id);
-//        return Result.success();
-//    }
+    /**
+     * 批量删除训练计划
+     */
+    @RequestMapping("/delete")
+    @ApiOperation("删除训练计划")
+    public Result deletePlan(@RequestParam List<Long> ids){
+        planService.deletePlan(ids);
+        return Result.success();
+    }
 
     /**
      * 训练计划启用与禁用

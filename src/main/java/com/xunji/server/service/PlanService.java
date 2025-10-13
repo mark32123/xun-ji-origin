@@ -28,4 +28,9 @@ public interface PlanService {
      * 启动或停止计划
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * 删除计划
+     */
+    void deletePlan(List<Long> ids);
 }

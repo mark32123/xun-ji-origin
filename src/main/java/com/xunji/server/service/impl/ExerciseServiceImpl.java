@@ -9,6 +9,7 @@ import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.mapper.ExerciseMapper;
+import com.xunji.server.mapper.PlanMapper;
 import com.xunji.server.service.ExerciseService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Autowired
     private ExerciseMapper exerciseMapper;
-    @Autowired
-    private ExerciseService exerciseService;
 
     /**
      * 用户查询动作

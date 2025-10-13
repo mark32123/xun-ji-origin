@@ -8,6 +8,8 @@ import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
 import com.xunji.pojo.vo.ExerciseItemVO;
 import com.xunji.pojo.vo.PlanVO;
+import com.xunji.server.mapper.ExerciseMapper;
+import com.xunji.server.mapper.PlanForExerciseMapper;
 import com.xunji.server.mapper.PlanMapper;
 import com.xunji.server.service.PlanService;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +24,11 @@ public class PlanServiceImpl implements PlanService {
 
     @Autowired
     private PlanMapper planMapper;
+    @Autowired
+    private PlanForExerciseMapper planforExerciseMapper;
+    @Autowired
+    private ExerciseMapper exerciseMapper;
+
     /**
      * 条件查询
      * @param plan
@@ -67,7 +74,7 @@ public class PlanServiceImpl implements PlanService {
         //启用计划时，判断计划内是否有禁用动作
         if(status == StatusConstant.ENABLE){
             //查询计划内所有动作
-            List<Exercise> exercises = planMapper.listExercise(id);
+            List<Exercise> exercises = exerciseMapper.listExercise(id);
             exercises.forEach(exercise -> {
                 if(exercise.getStatus() == StatusConstant.DISABLE){
                     throw new RuntimeException(MessageConstant.PLAN_ENABLE_FAILED);
@@ -82,6 +89,28 @@ public class PlanServiceImpl implements PlanService {
                 .build();
         planMapper.updateStatus(plan);
     }
+
+    /**
+     * 批量删除计划
+     * @param ids
+     */
+    public void deletePlan(List<Long> ids) {
+        ids.forEach(id -> {
+            Plan plan = planMapper.getById(id);
+            if(plan.getStatus() == StatusConstant.ENABLE){
+                throw new RuntimeException(MessageConstant.PLAN_DELETE_FAILED);
+            }
+        });
+
+        //删除计划
+        ids.forEach(planId ->{
+            //删除计划内所有动作
+            planMapper.deleteById(planId);
+            //删除计划关联数据
+            planforExerciseMapper.deleteByPlanId(planId);
+        });
+    }
+
 
     /**
      *         Plan plan = planMapper.getById(id);
