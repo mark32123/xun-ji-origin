@@ -19,6 +19,7 @@ import com.xunji.server.service.PlanService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -142,6 +143,24 @@ public class PlanServiceImpl implements PlanService {
         BeanUtils.copyProperties(plan, planvo);
         planvo.setPlanForExercises(planForExercises);
         return planvo;
+    }
+
+    /**
+     * 修改计划
+     * @param planDTO
+     */
+    @Transactional
+    public void update(PlanDTO planDTO) {
+        Plan plan = new Plan();
+        BeanUtils.copyProperties(planDTO, plan);
+        planMapper.update(plan);
+
+        planforExerciseMapper.deleteByPlanId(plan.getId());
+        List<PlanForExercise> planforExercises = planDTO.getPlanforExercises();
+        for (PlanForExercise planforExercise : planforExercises) {
+            planforExercise.setPlanId(plan.getId());
+        }
+        planMapper.insertPlanForExercise(planforExercises);
     }
 
 

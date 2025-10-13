@@ -69,4 +69,10 @@ public interface PlanMapper {
      */
     @Select("SELECT id, plan_id, exercise_id, name, set_count, weight FROM plan_for_exercise WHERE plan_id = #{id}")
     List<PlanForExercise> getByplanId(Long id);
+
+    /**
+     * 教练修改计划
+     */
+    @Update("UPDATE plan SET name = #{name}, description = #{description}, status = #{status}, update_time = #{updateTime}, update_user = #{updateUser}, category_id = #{categoryId} WHERE id = #{id}")
+    void update(Plan plan);
 }

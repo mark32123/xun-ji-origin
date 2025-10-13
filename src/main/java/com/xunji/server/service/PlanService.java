@@ -46,4 +46,9 @@ public interface PlanService {
      * 根据计划id查询计划
      */
     PlanVO getPlanWithId(Long id);
+
+    /**
+     * 修改计划
+     */
+    void update(PlanDTO planDTO);
 }
