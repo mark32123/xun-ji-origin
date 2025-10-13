@@ -129,6 +129,21 @@ public class PlanServiceImpl implements PlanService {
         return new PageResult(page.getTotal(), page.getResult());
     }
 
+    /**
+     * 根据id查询计划
+     * @param id
+     * @return
+     */
+    public PlanVO getPlanWithId(Long id) {
+        Plan plan = planMapper.getById(id);
+        List<PlanForExercise> planForExercises = planMapper.getByplanId(id);
+
+        PlanVO planvo = new PlanVO();
+        BeanUtils.copyProperties(plan, planvo);
+        planvo.setPlanForExercises(planForExercises);
+        return planvo;
+    }
+
 
     /**
      *         Plan plan = planMapper.getById(id);

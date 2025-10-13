@@ -72,5 +72,16 @@ public class PlanController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 根据id查询训练计划
+     */
+    @RequestMapping("/getById")
+    @ApiOperation("根据id查询训练计划")
+    @Cacheable(value = "planCache", key = "#id")
+    public Result<PlanVO> getById(@PathVariable Long id){
+        PlanVO planVO = planService.getPlanWithId(id);
+        return Result.success(planVO);
+    }
+
 
 }

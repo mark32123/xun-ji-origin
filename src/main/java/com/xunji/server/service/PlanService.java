@@ -5,6 +5,7 @@ import com.xunji.pojo.dto.PlanDTO;
 import com.xunji.pojo.dto.PlanPageQueryDTO;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.vo.ExerciseItemVO;
+import com.xunji.pojo.vo.PlanVO;
 
 import java.util.List;
 
@@ -40,4 +41,9 @@ public interface PlanService {
      * 训练计划分页查询
      */
     PageResult pageQuery(PlanPageQueryDTO planPageQueryDTO);
+
+    /**
+     * 根据计划id查询计划
+     */
+    PlanVO getPlanWithId(Long id);
 }

@@ -7,10 +7,7 @@ import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
 import com.xunji.pojo.vo.ExerciseItemVO;
 import com.xunji.pojo.vo.PlanVO;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public interface PlanMapper {
     /**
      * 新增训练计划和动作关系
      */
-    @Select("INSERT INTO plan_for_exercise (plan_id, exercise_id, name, set_count, weight) VALUES (#{planId}, #{exerciseId}, #{name}, #{setCount}, #{weight})")
+    @Insert("INSERT INTO plan_for_exercise (plan_id, exercise_id, name, set_count, weight) VALUES (#{planId}, #{exerciseId}, #{name}, #{setCount}, #{weight})")
     void insertPlanForExercise(List<PlanForExercise> planforExercises);
 
     /**
@@ -66,4 +63,10 @@ public interface PlanMapper {
      */
     @Select("SELECT id, name, description, status, create_time, update_time, create_user, update_user, category_id FROM plan WHERE name LIKE CONCAT('%', #{name}, '%') AND status = #{status} AND category_id = #{categoryId} ORDER BY update_time DESC")
     Page<PlanVO> pageQuery(PlanPageQueryDTO planPageQueryDTO);
+
+    /**
+     * 教练根据计划id查询计划动作关系
+     */
+    @Select("SELECT id, plan_id, exercise_id, name, set_count, weight FROM plan_for_exercise WHERE plan_id = #{id}")
+    List<PlanForExercise> getByplanId(Long id);
 }
