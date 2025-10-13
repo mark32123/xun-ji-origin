@@ -22,10 +22,6 @@ public class ExerciseVO {
     private Long exerciseId;
     //图片
     private String image;
-    //描述信息
-    private String description;
-    //更新时间
-    private LocalDateTime updateTime;
     //动作分类名称
     private String exerciseName;
 

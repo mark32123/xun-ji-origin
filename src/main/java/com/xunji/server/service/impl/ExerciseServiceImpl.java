@@ -45,7 +45,6 @@ public class ExerciseServiceImpl implements ExerciseService {
 
             exerciseVOList.add(exerciseVO);
         }
-
         return exerciseVOList;
     }
 

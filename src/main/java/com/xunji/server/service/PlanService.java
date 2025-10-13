@@ -1,5 +1,6 @@
 package com.xunji.server.service;
 
+import com.xunji.pojo.dto.PlanDTO;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.vo.ExerciseItemVO;
 
@@ -17,4 +18,9 @@ public interface PlanService {
      * 根据训练计划id查询动作
      */
     List<ExerciseItemVO> exerciseList(Long id);
+
+    /**
+     * 新增训练计划
+     */
+    void addPlan(PlanDTO planDTO);
 }

@@ -8,13 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class planDTO {
+public class PlanDTO {
 
     //计划id
     private Long id;
 
     //计划名称
     private String name;
+
+    //计划分类id
+    private Long categoryId;
 
     //计划描述
     private String description;
