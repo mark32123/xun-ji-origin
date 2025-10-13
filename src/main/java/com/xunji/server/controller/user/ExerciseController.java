@@ -38,7 +38,7 @@ public class ExerciseController {
         List<ExerciseVO> list = new ArrayList<>();
         //查询数据库
         Exercise exercise = new Exercise();
-        exercise.setExerciseId(exerciseId);
+        exercise.setCategoryId(exerciseId);
         list = exerciseService.selectExercise(exercise);
 
         return Result.success(list);

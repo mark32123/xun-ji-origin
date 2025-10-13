@@ -6,7 +6,9 @@ import com.xunji.server.service.PlanService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,4 +33,26 @@ public class PlanController {
         planService.addPlan(planDTO);
         return Result.success();
     }
+
+//    /**
+//     * 批量删除训练计划
+//     */
+//    @RequestMapping("/delete")
+//    @ApiOperation("删除训练计划")
+//    public Result deletePlan(Long id){
+//        planService.deletePlan(id);
+//        return Result.success();
+//    }
+
+    /**
+     * 训练计划启用与禁用
+     */
+    @RequestMapping("/startOrStop")
+    @ApiOperation("训练计划启用与禁用")
+    @CacheEvict(value = "planCache", allEntries = true)
+    public Result startOrStop(@PathVariable Integer status, Long id){
+        planService.startOrStop(status,id);
+        return Result.success();
+    }
+
 }

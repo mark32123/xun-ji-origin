@@ -1,10 +1,12 @@
 package com.xunji.server.mapper;
 
+import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
 import com.xunji.pojo.vo.ExerciseItemVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface PlanMapper {
     List<Plan> list(Plan plan);
 
     /**
-     * 根据计划id查询动作
+     * 用户根据计划id查询动作
      */
     @Select("SELECT id, exercise_id, name, set_count, weight FROM plan_for_exercise WHERE plan_id = #{id}")
     List<ExerciseItemVO> exerciseList(Long id);
@@ -36,4 +38,15 @@ public interface PlanMapper {
     @Select("INSERT INTO plan_for_exercise (plan_id, exercise_id, name, set_count, weight) VALUES (#{planId}, #{exerciseId}, #{name}, #{setCount}, #{weight})")
     void insertPlanForExercise(List<PlanForExercise> planforExercises);
 
+    /**
+     * 教练根据计划id查询动作
+     */
+    @Select("SELECT exercise_id, name, set_count, weight FROM plan_for_exercise WHERE plan_id = #{id}")
+    List<Exercise> listExercise(Long id);
+
+    /**
+     * 启动或禁用计划
+     */
+    @Update("UPDATE plan SET status = #{status} WHERE id = #{id}")
+    void updateStatus(Plan plan);
 }

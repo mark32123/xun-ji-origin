@@ -23,4 +23,9 @@ public interface PlanService {
      * 新增训练计划
      */
     void addPlan(PlanDTO planDTO);
+
+    /**
+     * 启动或停止计划
+     */
+    void startOrStop(Integer status, Long id);
 }

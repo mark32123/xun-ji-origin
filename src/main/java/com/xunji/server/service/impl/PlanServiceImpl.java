@@ -1,6 +1,9 @@
 package com.xunji.server.service.impl;
 
+import com.xunji.common.constant.MessageConstant;
+import com.xunji.common.constant.StatusConstant;
 import com.xunji.pojo.dto.PlanDTO;
+import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.entity.PlanForExercise;
 import com.xunji.pojo.vo.ExerciseItemVO;
@@ -53,6 +56,31 @@ public class PlanServiceImpl implements PlanService {
         }
         //保存动作与训练计划关系
         planMapper.insertPlanForExercise(planforExercises);
+    }
+
+    /**
+     * 启动或停止计划
+     * @param status
+     * @param id
+     */
+    public void startOrStop(Integer status, Long id) {
+        //启用计划时，判断计划内是否有禁用动作
+        if(status == StatusConstant.ENABLE){
+            //查询计划内所有动作
+            List<Exercise> exercises = planMapper.listExercise(id);
+            exercises.forEach(exercise -> {
+                if(exercise.getStatus() == StatusConstant.DISABLE){
+                    throw new RuntimeException(MessageConstant.PLAN_ENABLE_FAILED);
+                }
+            });
+        }
+
+        Plan plan = new Plan();
+        plan.builder()
+                .id(id)
+                .status(status)
+                .build();
+        planMapper.updateStatus(plan);
     }
 
     /**
