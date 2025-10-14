@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Map;
 
-
 public class JwtUtil {
     /**
      * 生成jwt

@@ -42,8 +42,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/user/**")
-                .excludePathPatterns("/user/user/login")
-                .excludePathPatterns("/user/shop/status");
+                .excludePathPatterns("/user/app/login");
     }
 
     /**
@@ -61,7 +60,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .groupName("管理端管理")
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sky.controller.admin"))
+                .apis(RequestHandlerSelectors.basePackage("com.xunji.server.controller.admin"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;
@@ -78,7 +77,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .groupName("用户端管理")
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.sky.controller.user"))
+                .apis(RequestHandlerSelectors.basePackage("com.xunji.server.controller.user"))
                 .paths(PathSelectors.any())
                 .build();
         return docket;

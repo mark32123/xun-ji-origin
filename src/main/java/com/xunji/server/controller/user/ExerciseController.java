@@ -35,6 +35,7 @@ public class ExerciseController {
     @ApiOperation("根据动作分类id动作")
     public Result<List<ExerciseVO>> list(Long exerciseId){
 
+        log.info("根据动作分类id查询动作, 参数: {}", exerciseId);
         List<ExerciseVO> list = new ArrayList<>();
         //查询数据库
         Exercise exercise = new Exercise();

@@ -7,6 +7,7 @@ import com.xunji.pojo.vo.ExerciseItemVO;
 import com.xunji.server.service.PlanService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController("userPlanController")
 @RequestMapping("/user/plan")
 @Api("C端-训练计划接口")
+@Slf4j
 public class PlanController {
 
     @Autowired
@@ -35,6 +37,7 @@ public class PlanController {
     @Cacheable(value = "planCache", key = "#categoryId")
     public Result<List<Plan>> list(Long categoryId) {
 
+        log.info("查询条件: {}", categoryId);
         Plan plan = new Plan();
         plan.setCategoryId(categoryId);
         plan.setStatus(StatusConstant.ENABLE);

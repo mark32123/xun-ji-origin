@@ -5,6 +5,7 @@ import com.xunji.pojo.entity.ExerciseCategory;
 import com.xunji.server.service.ExerciseCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController("userExerciseCategoryController")
 @RequestMapping("/user/exerciseCategory")
 @Api(tags = "C端-训练动作分类接口")
+@Slf4j
 public class ExerciseCategoryController {
 
     @Autowired
@@ -29,6 +31,7 @@ public class ExerciseCategoryController {
     @RequestMapping("/list")
     @ApiOperation("查询所有分类")
     public Result<List<ExerciseCategory>> list(Integer  type){
+            log.info("查询所有分类, 参数: {}", type);
             List<ExerciseCategory> list = exerciseCategoryService.list(type);
             return Result.success(list);
     }

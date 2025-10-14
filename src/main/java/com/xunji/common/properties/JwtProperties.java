@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "sky.jwt")
+@ConfigurationProperties(prefix = "xunji.jwt")
 @Data
 public class JwtProperties {
 
@@ -17,10 +17,12 @@ public class JwtProperties {
     private String adminTokenName;
 
     /**
-     * 用户端微信用户生成jwt令牌相关配置
+     * 用户生成jwt令牌相关配置
      */
     private String userSecretKey;
     private long userTtl;
     private String userTokenName;
 
 }
+
+
