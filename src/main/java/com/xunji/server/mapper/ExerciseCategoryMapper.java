@@ -11,9 +11,9 @@ public interface ExerciseCategoryMapper {
 
     /**
      * 查询所有分类
-     * @param type
+     * @param
      * @return
      */
-    @Select("select * from exercise_category where name = #{name}")
-    List<ExerciseCategory> list(Integer type);
+    @Select("SELECT * FROM exercise_category")
+    List<ExerciseCategory> list();
 }

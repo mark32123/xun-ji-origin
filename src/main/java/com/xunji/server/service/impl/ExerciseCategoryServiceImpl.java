@@ -17,7 +17,7 @@ public class ExerciseCategoryServiceImpl implements ExerciseCategoryService {
 
 
     @Override
-    public List<ExerciseCategory> list(Integer type) {
-        return exerciseCategoryMapper.list(type);
+    public List<ExerciseCategory> list() {
+        return exerciseCategoryMapper.list();
     }
 }

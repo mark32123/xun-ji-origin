@@ -24,15 +24,16 @@ public class ExerciseCategoryController {
 
     /**
      * 查询所有分类
-     * @param type
+     *
+     * @param
      * @return
-     * 类型: 1动作分类 2训练计划分类
      */
     @RequestMapping("/list")
     @ApiOperation("查询所有分类")
-    public Result<List<ExerciseCategory>> list(Integer  type){
-            log.info("查询所有分类, 参数: {}", type);
-            List<ExerciseCategory> list = exerciseCategoryService.list(type);
-            return Result.success(list);
+    public Result<List<ExerciseCategory>> list() {
+        log.info("查询所有分类");
+        List<ExerciseCategory> list = exerciseCategoryService.list();
+        log.info("Controller返回的数据: {}", list);
+        return Result.success(list);
     }
 }

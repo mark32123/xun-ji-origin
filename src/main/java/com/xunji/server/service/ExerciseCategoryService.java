@@ -7,8 +7,8 @@ import java.util.List;
 public interface ExerciseCategoryService {
     /**
      * 查询所有分类
-     * @param type
+     * @param
      * @return
      */
-    List<ExerciseCategory> list(Integer type);
+    List<ExerciseCategory> list();
 }

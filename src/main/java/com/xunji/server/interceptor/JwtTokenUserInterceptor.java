@@ -42,20 +42,47 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
         //1、从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getUserTokenName());
+        log.info("获取到的token: {}", token);
+
+        // 支持两种格式：带Bearer前缀和不带前缀
+        if (token == null) {
+            log.warn("Token为空");
+            response.setStatus(401);
+            return false;
+        }
+
+        // 如果token以Bearer开头，则去除前缀
+        if (token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+
 
         //2、校验令牌
         try {
             log.info("jwt校验:{}", token);
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
+
+            /****/
+            log.info("解析后的claims内容: {}", claims);// 添加日志查看
+            Object userIdObj = claims.get(JwtClaimsConstant.USER_ID);
+            if (userIdObj == null) {
+                log.warn("JWT中缺少用户ID信息，claims内容: {}", claims);
+                response.setStatus(401);
+                return false;
+            }
+            /****/
+
             Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
-            log.info("当前用户id：", userId);
+            log.info("当前用户id：{}", userId);
             BaseContext.setCurrentId(userId);
             //3、通过，放行
             return true;
-        } catch (Exception ex) {
-            //4、不通过，响应401状态码
-            response.setStatus(401);
-            return false;
-        }
+        } // 在 JwtTokenUserInterceptor 中改进异常处理
+            catch (Exception ex) {
+                log.error("JWT校验失败: ", ex);
+                response.setStatus(401);
+                return false;
+            }
+
     }
 }

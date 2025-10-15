@@ -1,5 +1,6 @@
 package com.xunji.server.controller.user;
 
+import com.xunji.common.constant.JwtClaimsConstant;
 import com.xunji.common.properties.JwtProperties;
 import com.xunji.common.result.Result;
 import com.xunji.common.utils.JwtUtil;
@@ -46,7 +47,8 @@ public class UserController {
 
         //jwt令牌
         Map<String,Object> claims = new HashMap<>();
-        claims.put("USER_ID",user.getId());
+        claims.put(JwtClaimsConstant.USER_ID, user.getId()); // 使用常量"userId"
+        log.info("生成JWT时的claims内容: {}", claims); // 添加日志
         String jwt = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
 
         UserLoginVO userLoginVO = UserLoginVO.builder()

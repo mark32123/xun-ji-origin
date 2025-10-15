@@ -53,7 +53,7 @@ public class PlanController {
     @GetMapping("/exercise/{id}")
     @ApiOperation("根据训练计划id查询动作")
     public Result<List<ExerciseItemVO>> exerciseList(@PathVariable("id") Long id){
-
+        log.info("查询id: {}", id);
         List<ExerciseItemVO> list = planService.exerciseList(id);
         return Result.success(list);
     }
