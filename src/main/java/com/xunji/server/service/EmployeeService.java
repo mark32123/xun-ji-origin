@@ -44,4 +44,12 @@ public interface EmployeeService {
      * @param employeeDTO 编辑教练信息
      */
     void update(EmployeeDTO employeeDTO);
+
+    /**
+     * 根据id查询员工信息
+     *
+     * @param id 员工id
+     * @return 员工信息
+     */
+    Employee getById(Long id);
 }

@@ -48,4 +48,12 @@ public interface EmployeeMapper {
      */
     @Update("update admin set status = #{status} where id = #{id}")
     void startOrStop(Employee employee);
+
+    /**
+     * 根据id查询员工
+     * @param id
+     * @return
+     */
+    @Select("select * from admin where id = #{id}")
+    Employee getById(Long id);
 }

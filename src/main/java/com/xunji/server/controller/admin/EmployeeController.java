@@ -109,4 +109,16 @@ public class EmployeeController {
         employeeService.update(employeeDTO);
         return Result.success();
     }
+
+    /**
+     * 根据id查询教练信息
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询教练信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        log.info("根据id查询教练信息: {}", id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
 }
