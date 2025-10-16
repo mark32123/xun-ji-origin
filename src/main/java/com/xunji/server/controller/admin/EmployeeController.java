@@ -87,4 +87,16 @@ public class EmployeeController {
         PageResult page = employeeService.page(employeePageQueryDTO);
         return Result.success(page);
     }
+
+
+    /**
+     * 启用禁用教练账号
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用教练账号")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用禁用教练账号,参数:{}", id);
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
 }

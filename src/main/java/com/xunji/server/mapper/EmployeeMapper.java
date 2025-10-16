@@ -6,6 +6,7 @@ import com.xunji.pojo.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 
 @Mapper
@@ -33,4 +34,18 @@ public interface EmployeeMapper {
      */
     @Select("select * from admin limit #{page}, #{pageSize}")
     Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
+
+//    /**
+//     * 修改员工信息
+//     * @param employee
+//     */
+//    @Update("update admin set username = #{username}, name = #{name}, phone = #{phone}, sex = #{sex}, status = #{status} where id = #{id}")
+//    void update(Employee employee);
+
+    /**
+     * 启用禁用员工账号
+     * @param employee
+     */
+    @Update("update admin set status = #{status} where id = #{id}")
+    void startOrStop(Employee employee);
 }

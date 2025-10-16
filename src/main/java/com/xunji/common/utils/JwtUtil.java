@@ -64,10 +64,10 @@ public static String createJWT(String secretKey, Long ttlMillis, Map<String, Obj
 // 在 JwtUtil.getSigningKey 方法中添加日志
     private static SecretKey getSigningKey(String secretKey) {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-        log.info("密钥处理 - 原始: {}, 长度: {}", secretKey, keyBytes.length);
+//        log.info("密钥处理 - 原始: {}, 长度: {}", secretKey, keyBytes.length);
         if (keyBytes.length < 32) {
             keyBytes = DigestUtils.sha256(secretKey);
-            log.info("密钥处理 - 扩展后长度: {}", keyBytes.length);
+//            log.info("密钥处理 - 扩展后长度: {}", keyBytes.length);
         }
         return Keys.hmacShaKeyFor(keyBytes);
     }
