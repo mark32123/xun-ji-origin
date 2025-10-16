@@ -7,8 +7,10 @@ import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.ExerciseDTO;
 import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
+import com.xunji.pojo.entity.Plan;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.mapper.ExerciseMapper;
+import com.xunji.server.mapper.PlanForExerciseMapper;
 import com.xunji.server.mapper.PlanMapper;
 import com.xunji.server.service.ExerciseService;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +27,10 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Autowired
     private ExerciseMapper exerciseMapper;
+    @Autowired
+    private PlanMapper planMapper;
+    @Autowired
+    private PlanForExerciseMapper planForExerciseMapper;
 
     /**
      * 用户查询动作
@@ -76,7 +82,6 @@ public class ExerciseServiceImpl implements ExerciseService {
      * 教练删除动作
      * @param ids
      */
-    //TODO: 删除动作中关联训练计划功能
     @Transactional
     public void delete(List<Long> ids) {
 
@@ -89,7 +94,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         });
 
         //判断当前动作是否被计划使用，被计划使用则不能删除
-
+        ids.forEach(id -> {
+            List<Exercise> exerciseList = exerciseMapper.listExercise(id);
+            if (!exerciseList.isEmpty()) {
+                throw new RuntimeException("当前动作被计划使用，不能删除");
+            }
+        });
 
         //删除动作
         ids.forEach(id -> exerciseMapper.delete(id));
@@ -148,10 +158,20 @@ public class ExerciseServiceImpl implements ExerciseService {
                 .build();
         exerciseMapper.updateStatus(exercise);
 
-        //TODO :判断是不是禁用操作，若果是，则需要把关联训练计划也禁用
-        if(status == StatusConstant.DISABLE){}
-
+        if(status == StatusConstant.DISABLE){
+            List<Long> exerciseIds = new ArrayList<>();
+            exerciseIds.add(id);
+            List<Long> exerciseList = planForExerciseMapper.getPlanIdByExerciseId(exerciseIds);
+            if(!exerciseList.isEmpty()){
+                for(Long e : exerciseList){
+                    Plan plan = Plan.builder()
+                            .id(e)
+                            .status(status)
+                            .build();
+                            planMapper.update(plan);
+                }
+            }
+        }
     }
-
 
 }

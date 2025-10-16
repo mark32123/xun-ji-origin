@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xunji.server.mapper.ExerciseMapper">
+
+    <select id="pageQuery" resultType="com.xunji.pojo.vo.ExerciseVO">
+        select ea.*, ec.name as categoryName
+        from exercise_action ea
+        left outer join exercise_category ec on ea.category_id = ec.id
+        <where>
+            <if test="name != null and name != ''">
+                and ea.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and ea.category_id = #{categoryId}
+            </if>
+        </where>
+        order by ea.created_time desc
+    </select>
+
+    <select id="selectExercise" parameterType="com.xunji.pojo.entity.Exercise"
+        resultType="com.xunji.pojo.entity.Exercise">
+        SELECT * FROM exercise_action
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+        </where>
+    </select>
+
+</mapper>

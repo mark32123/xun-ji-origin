@@ -6,10 +6,7 @@ import com.xunji.pojo.dto.ExercisePageQueryDTO;
 import com.xunji.pojo.entity.Exercise;
 import com.xunji.pojo.vo.ExerciseVO;
 import com.xunji.server.annotation.AutoFill;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public interface ExerciseMapper {
      * 教练添加动作
      * @param exercise
      */
-    @AutoFill(value = OperationType.INSERT)
+    @Insert("insert into exercise_action (name,status,category_id,created_time,update_time) values (#{name},#{status},#{categoryId},#{createTime},#{updateTime})")
     void add(Exercise exercise);
 
     /**
@@ -80,4 +77,5 @@ public interface ExerciseMapper {
      */
     @Select("select * from exercise_action where id in (select exercise_id from plan_for_exercise where plan_id = #{id})")
     List<Exercise> listExercise(Long id);
+
 }

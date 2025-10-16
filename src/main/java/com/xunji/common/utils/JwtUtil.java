@@ -57,10 +57,10 @@ public class JwtUtil {
     public static Claims parseJWT(String secretKey, String token) {
         try {
             byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-            log.info("原始密钥长度: {}", keyBytes.length);
+//            log.info("原始密钥长度: {}", keyBytes.length);
             if (keyBytes.length < 32) {
                 keyBytes = DigestUtils.sha256(secretKey);
-                log.info("扩展后密钥长度: {}", keyBytes.length);
+//                log.info("扩展后密钥长度: {}", keyBytes.length);
             }
 
             Claims claims = Jwts.parser()

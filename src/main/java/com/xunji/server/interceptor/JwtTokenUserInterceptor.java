@@ -42,7 +42,7 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
 
         //1、从请求头中获取令牌
         String token = request.getHeader(jwtProperties.getUserTokenName());
-        log.info("获取到的token: {}", token);
+//        log.info("获取到的token: {}", token);
 
         // 支持两种格式：带Bearer前缀和不带前缀
         if (token == null) {
@@ -63,10 +63,10 @@ public class JwtTokenUserInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
 
             /****/
-            log.info("解析后的claims内容: {}", claims);// 添加日志查看
+//            log.info("解析后的claims内容: {}", claims);// 添加日志查看
             Object userIdObj = claims.get(JwtClaimsConstant.USER_ID);
             if (userIdObj == null) {
-                log.warn("JWT中缺少用户ID信息，claims内容: {}", claims);
+//                log.warn("JWT中缺少用户ID信息，claims内容: {}", claims);
                 response.setStatus(401);
                 return false;
             }

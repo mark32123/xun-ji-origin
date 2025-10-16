@@ -75,4 +75,5 @@ public interface PlanMapper {
      */
     @Update("UPDATE plan SET name = #{name}, description = #{description}, status = #{status}, update_time = #{updateTime}, update_user = #{updateUser}, category_id = #{categoryId} WHERE id = #{id}")
     void update(Plan plan);
+
 }
