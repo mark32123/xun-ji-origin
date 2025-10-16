@@ -1,10 +1,14 @@
 package com.xunji.server.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xunji.common.constant.MessageConstant;
 import com.xunji.common.constant.PasswordConstant;
 import com.xunji.common.constant.StatusConstant;
+import com.xunji.common.result.PageResult;
 import com.xunji.pojo.dto.EmployeeDTO;
 import com.xunji.pojo.dto.EmployeeLoginDTO;
+import com.xunji.pojo.dto.EmployeePageQueryDTO;
 import com.xunji.pojo.entity.Employee;
 import com.xunji.server.mapper.EmployeeMapper;
 import com.xunji.server.service.EmployeeService;
@@ -12,6 +16,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -53,5 +59,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));//md5加密
         employeeMapper.insert(employee);
+    }
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO 分页查询参数
+     * @return
+     */
+    public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+        Page<Employee> page = employeeMapper.page(employeePageQueryDTO);
+        Long total = page.getTotal();
+        List<Employee> records = page.getResult();
+        return new PageResult(total, records);
     }
 }

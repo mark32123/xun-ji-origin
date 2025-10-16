@@ -1,5 +1,7 @@
 package com.xunji.server.mapper;
 
+import com.github.pagehelper.Page;
+import com.xunji.pojo.dto.EmployeePageQueryDTO;
 import com.xunji.pojo.entity.Employee;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +25,12 @@ public interface EmployeeMapper {
      */
     @Insert("insert into admin (username, name, phone, sex, password) values (#{username}, #{name}, #{phone}, #{sex}, #{password})")
     void insert(Employee employee);
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return
+     */
+    @Select("select * from admin limit #{page}, #{pageSize}")
+    Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
 }
