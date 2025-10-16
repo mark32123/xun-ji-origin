@@ -35,12 +35,12 @@ public interface EmployeeMapper {
     @Select("select * from admin limit #{page}, #{pageSize}")
     Page<Employee> page(EmployeePageQueryDTO employeePageQueryDTO);
 
-//    /**
-//     * 修改员工信息
-//     * @param employee
-//     */
-//    @Update("update admin set username = #{username}, name = #{name}, phone = #{phone}, sex = #{sex}, status = #{status} where id = #{id}")
-//    void update(Employee employee);
+    /**
+     * 修改员工信息
+     * @param employee
+     */
+    @Update("update admin set username = #{username}, name = #{name}, phone = #{phone}, sex = #{sex}, status = #{status} where id = #{id}")
+    void update(Employee employee);
 
     /**
      * 启用禁用员工账号

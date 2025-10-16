@@ -23,4 +23,7 @@ public class EmployeeDTO implements Serializable {
 
     //性别
     private String sex;
+
+    //状态 0:禁用，1:正常
+    private Integer status;
 }

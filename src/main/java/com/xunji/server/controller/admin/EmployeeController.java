@@ -45,7 +45,6 @@ public class EmployeeController {
         //jwt令牌
         Map<String,Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.EMP_ID, employee.getId());
-        log.info("生成JWT时的claims内容: {}", claims); // 添加日志
         String jwt = JwtUtil.createJWT(jwtProperties.getAdminSecretKey(), jwtProperties.getAdminTtl(), claims);
 
         EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
@@ -97,6 +96,17 @@ public class EmployeeController {
     public Result startOrStop(@PathVariable Integer status, Long id) {
         log.info("启用禁用教练账号,参数:{}", id);
         employeeService.startOrStop(status, id);
+        return Result.success();
+    }
+
+    /**
+     * 编辑教练信息
+     */
+    @PutMapping("/update")
+    @ApiOperation("修改教练信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("修改教练信息: {}", employeeDTO);
+        employeeService.update(employeeDTO);
         return Result.success();
     }
 }

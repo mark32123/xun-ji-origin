@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -85,5 +86,20 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .id(id)
                     .build();
             employeeMapper.startOrStop(employee);
+    }
+
+    /**
+     *  编辑教练信息
+     * @param employeeDTO 编辑教练信息
+     */
+    public void update(EmployeeDTO employeeDTO) {
+            Employee employee = new Employee();
+            BeanUtils.copyProperties(employeeDTO, employee);
+
+            employee.setUpdateTime(LocalTime.now());
+            employee.setUpdateUser(employeeDTO.getId());
+
+            employeeMapper.update(employee);
+
     }
 }
