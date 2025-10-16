@@ -16,7 +16,10 @@ public class ExerciseCategoryServiceImpl implements ExerciseCategoryService {
     private ExerciseCategoryMapper exerciseCategoryMapper;
 
 
-    @Override
+    /**
+     * 查询所有分类
+     * @return
+     */
     public List<ExerciseCategory> list() {
         return exerciseCategoryMapper.list();
     }
