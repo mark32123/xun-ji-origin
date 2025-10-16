@@ -12,7 +12,7 @@ xunji:
   jwt:
     admin-secret-key: xunji
     admin-ttl: 7200000
-    admin-token-name: token
+    admin-token-name: tokenadmin
     user-secret-key: itcast
     user-token-name: token
     user-ttl: 7200000

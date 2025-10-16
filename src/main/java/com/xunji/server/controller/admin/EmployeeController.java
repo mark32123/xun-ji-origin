@@ -4,6 +4,7 @@ import com.xunji.common.constant.JwtClaimsConstant;
 import com.xunji.common.properties.JwtProperties;
 import com.xunji.common.result.Result;
 import com.xunji.common.utils.JwtUtil;
+import com.xunji.pojo.dto.EmployeeDTO;
 import com.xunji.pojo.dto.EmployeeLoginDTO;
 import com.xunji.pojo.dto.UserLoginDTO;
 import com.xunji.pojo.entity.Employee;
@@ -15,10 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +36,7 @@ public class EmployeeController {
     private JwtProperties jwtProperties;
 
     @PostMapping("/login")
-    @ApiOperation("App用户登录")
+    @ApiOperation("教练登录")
     public Result<EmployeeLoginVO> appLogin(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录, 参数: {}", employeeLoginDTO);
 
@@ -49,7 +47,7 @@ public class EmployeeController {
         Map<String,Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.EMP_ID, employee.getId());
         log.info("生成JWT时的claims内容: {}", claims); // 添加日志
-        String jwt = JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
+        String jwt = JwtUtil.createJWT(jwtProperties.getAdminSecretKey(), jwtProperties.getAdminTtl(), claims);
 
         EmployeeLoginVO employeeLoginVO = EmployeeLoginVO.builder()
                 .id(employee.getId())
@@ -59,4 +57,25 @@ public class EmployeeController {
         return Result.success(employeeLoginVO);
     }
 
+    /**
+     * 退出登录
+     * @return
+     */
+    @PostMapping("/logout")
+    @ApiOperation("教练退出登录")
+    public Result<String> logout() {
+        log.info("员工退出登录");
+        return Result.success();
+    }
+
+    /**
+     * 新增员工信息
+     */
+    @GetMapping("/save")
+    @ApiOperation("新增员工信息")
+    public Result get(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("新增员工信息: {}", employeeDTO);
+        employeeService.save(employeeDTO);
+        return Result.success();
+    }
 }

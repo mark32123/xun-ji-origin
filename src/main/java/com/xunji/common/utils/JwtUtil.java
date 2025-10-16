@@ -24,28 +24,19 @@ public class JwtUtil {
      * @param claims    设置的信息
      * @return
      */
-    public static String createJWT(String secretKey, Long ttlMillis, Map<String, Object> claims) {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+public static String createJWT(String secretKey, Long ttlMillis, Map<String, Object> claims) {
+    SecretKey key = getSigningKey(secretKey);
+    long expMillis = System.currentTimeMillis() + ttlMillis;
+    Date exp = new Date(expMillis);
 
-        // 确保密钥长度足够，如果不够则进行处理
-        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-        // 如果密钥太短，则使用SHA-256哈希扩展
-        if (keyBytes.length < 32) {
-            keyBytes = DigestUtils.sha256(secretKey);
-        }
+    JwtBuilder builder = Jwts.builder()
+            .setClaims(claims)
+            .signWith(key)  // 移除SignatureAlgorithm参数，让jjwt自动处理
+            .setExpiration(exp);
 
-        SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+    return builder.compact();
+}
 
-        long expMillis = System.currentTimeMillis() + ttlMillis;
-        Date exp = new Date(expMillis);
-
-        JwtBuilder builder = Jwts.builder()
-                .setClaims(claims)
-                .signWith(key)
-                .setExpiration(exp);
-
-        return builder.compact();
-    }
 
     /**
      * Token解密
@@ -56,21 +47,29 @@ public class JwtUtil {
      */
     public static Claims parseJWT(String secretKey, String token) {
         try {
-            byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
-//            log.info("原始密钥长度: {}", keyBytes.length);
-            if (keyBytes.length < 32) {
-                keyBytes = DigestUtils.sha256(secretKey);
-//                log.info("扩展后密钥长度: {}", keyBytes.length);
-            }
-
-            Claims claims = Jwts.parser()
-                    .setSigningKey(Keys.hmacShaKeyFor(keyBytes))
-                    .parseClaimsJws(token).getBody();
+            SecretKey key = getSigningKey(secretKey);
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
             return claims;
         } catch (Exception e) {
             log.error("JWT解析异常: ", e);
             throw e;
         }
+    }
+
+    // 在 JwtUtil 类中创建统一的密钥处理方法
+// 在 JwtUtil.getSigningKey 方法中添加日志
+    private static SecretKey getSigningKey(String secretKey) {
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        log.info("密钥处理 - 原始: {}, 长度: {}", secretKey, keyBytes.length);
+        if (keyBytes.length < 32) {
+            keyBytes = DigestUtils.sha256(secretKey);
+            log.info("密钥处理 - 扩展后长度: {}", keyBytes.length);
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
 
