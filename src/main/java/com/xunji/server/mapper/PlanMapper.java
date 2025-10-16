@@ -24,7 +24,7 @@ public interface PlanMapper {
     /**
      * 用户根据计划id查询动作
      */
-    @Select("SELECT id, exercise_id, name, set_count, weight FROM plan_for_exercise WHERE plan_id = #{id}")
+    @Select("SELECT id, exercise_id, name, set_count AS setCount, weight ,count FROM plan_for_exercise WHERE plan_id = #{id}")
     List<ExerciseItemVO> exerciseList(Long id);
 
     /**

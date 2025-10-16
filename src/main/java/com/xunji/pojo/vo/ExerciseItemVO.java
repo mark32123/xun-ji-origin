@@ -30,4 +30,7 @@ public class ExerciseItemVO {
 
     //每组重量
     private BigDecimal weight;
+
+    //每组次数
+    private Integer count;
 }
