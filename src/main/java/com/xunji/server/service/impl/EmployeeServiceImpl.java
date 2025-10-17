@@ -12,6 +12,7 @@ import com.xunji.pojo.dto.EmployeePageQueryDTO;
 import com.xunji.pojo.entity.Employee;
 import com.xunji.server.mapper.EmployeeMapper;
 import com.xunji.server.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
 
@@ -70,8 +72,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult page(EmployeePageQueryDTO employeePageQueryDTO) {
         PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
         Page<Employee> page = employeeMapper.page(employeePageQueryDTO);
+
         Long total = page.getTotal();
         List<Employee> records = page.getResult();
+
+        log.info("分页查询结果 - 总数: {}, 记录数: {}", page.getTotal(), page.getResult().size());
         return new PageResult(total, records);
     }
 
