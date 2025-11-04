@@ -18,11 +18,8 @@ public class ExerciseVO {
     private Long id;
     //动作名称
     private String name;
-    //动作分类id
-    private Long exerciseId;
     //图片
     private String image;
-    //动作分类名称
-    private String exerciseName;
-
+    //详细描述
+    private String description;
 }

@@ -23,17 +23,14 @@
         resultType="com.xunji.pojo.entity.Exercise">
         SELECT * FROM exercise_action
         <where>
-            <if test="id != null">
-                AND id = #{id}
-            </if>
             <if test="name != null and name != ''">
                 AND name LIKE CONCAT('%', #{name}, '%')
             </if>
-            <if test="categoryId != null">
-                AND category_id = #{categoryId}
+            <if test="image != null">
+                AND image = #{image}
             </if>
-            <if test="status != null">
-                AND status = #{status}
+            <if test="description != null">
+                AND description = #{description}
             </if>
         </where>
     </select>

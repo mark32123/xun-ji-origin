@@ -69,7 +69,6 @@ public class UserController {
     public Result register(@RequestBody UserRegisterDTO userRegisterDTO) {
         log.info("用户注册, 参数: {}", userRegisterDTO);
         return userService.register(userRegisterDTO);
-
     }
 
 }
