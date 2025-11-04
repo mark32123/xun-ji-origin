@@ -5,6 +5,7 @@ import com.xunji.common.properties.JwtProperties;
 import com.xunji.common.result.Result;
 import com.xunji.common.utils.JwtUtil;
 import com.xunji.pojo.dto.UserLoginDTO;
+import com.xunji.pojo.dto.UserRegisterDTO;
 import com.xunji.pojo.entity.User;
 import com.xunji.pojo.vo.UserLoginVO;
 import com.xunji.server.service.UserService;
@@ -57,6 +58,18 @@ public class UserController {
                 .build();
 
         return Result.success(userLoginVO);
+    }
+
+    /**
+     * 用户注册
+     *
+     */
+    @PostMapping("/register")
+    @ApiOperation("用户注册")
+    public Result register(@RequestBody UserRegisterDTO userRegisterDTO) {
+        log.info("用户注册, 参数: {}", userRegisterDTO);
+        return userService.register(userRegisterDTO);
+
     }
 
 }

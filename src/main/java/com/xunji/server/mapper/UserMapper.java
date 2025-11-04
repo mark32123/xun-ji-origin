@@ -15,4 +15,11 @@ public interface UserMapper {
      */
     @Select("select * from user where phone = #{phone} and password = #{password}")
     User getByPhoneAndPassword(String phone, String password);
+
+    /**
+     * 新增用户
+     * @param newUser
+     */
+    @Select("insert into user(phone, password, name, sex, create_time) values(#{phone}, #{password}, #{name}, #{sex}, #{createTime})")
+    void insertNewUser(User newUser);
 }

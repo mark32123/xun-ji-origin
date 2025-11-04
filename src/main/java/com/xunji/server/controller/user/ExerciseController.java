@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -27,12 +28,13 @@ public class ExerciseController {
 
 
     /**
-     * 根据动作分类id动作
+     * 根据动作分类id查询动作
      * @return
      * 后续可添加redis缓存，待优化
      */
-    @GetMapping("/list")
-    @ApiOperation("根据动作分类id动作")
+//    @GetMapping("/list")
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @ApiOperation("根据动作分类id查询动作")
     public Result<List<ExerciseVO>> list(Long exerciseId){
 
         log.info("根据动作分类id查询动作, 参数: {}", exerciseId);
