@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface ExerciseService {
     /**
-     * 用户查询动作
+     * 用户根据分类id查询动作
      *
      * @return
      */
-    List<ExerciseVO> selectExercise(Exercise exercise);
+    List<ExerciseVO> selectExercise(Long categoryId);
 
     /**
      * 教练添加动作

@@ -14,10 +14,11 @@ import java.util.List;
 public interface ExerciseMapper {
 
     /**
-     * 用户查询动作
+     * 用户根据分类id查询动作
      * @return
      */
-    List<Exercise> selectExercise(Exercise exercise);
+    @Select("select * from exercise_action where category_id = #{categoryId}")
+    List<Exercise> selectExercise(Long categoryId);
 
     /**
      * 教练添加动作

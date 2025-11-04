@@ -37,9 +37,9 @@ public class ExerciseServiceImpl implements ExerciseService {
      *
      * @return
      */
-    public List<ExerciseVO> selectExercise(Exercise exercise) {
+    public List<ExerciseVO> selectExercise(Long catagoryId) {
         //查询数据库数据到这个集合中
-        List<Exercise> exerciseList = exerciseMapper.selectExercise(exercise);
+        List<Exercise> exerciseList = exerciseMapper.selectExercise(catagoryId);
 
         //创建一个VO集合传给前端
         List<ExerciseVO> exerciseVOList = new ArrayList<>();

@@ -19,20 +19,20 @@
         order by ea.created_time desc
     </select>
 
-    <select id="selectExercise" parameterType="com.xunji.pojo.entity.Exercise"
-        resultType="com.xunji.pojo.entity.Exercise">
-        SELECT * FROM exercise_action
-        <where>
-            <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
-            </if>
-            <if test="image != null">
-                AND image = #{image}
-            </if>
-            <if test="description != null">
-                AND description = #{description}
-            </if>
-        </where>
-    </select>
+<!--    <select id="selectExercise" parameterType="com.xunji.pojo.entity.Exercise"-->
+<!--        resultType="com.xunji.pojo.entity.Exercise">-->
+<!--        SELECT * FROM exercise_action-->
+<!--        <where>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                AND name LIKE CONCAT('%', #{name}, '%')-->
+<!--            </if>-->
+<!--            <if test="image != null">-->
+<!--                AND image = #{image}-->
+<!--            </if>-->
+<!--            <if test="description != null">-->
+<!--                AND description = #{description}-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
 
 </mapper>

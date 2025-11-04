@@ -27,24 +27,18 @@ public class ExerciseController {
     private ExerciseService exerciseService;
 
 
-    /**
-     * 根据动作分类id查询动作
-     * @return
-     * 后续可添加redis缓存，待优化
-     */
-//    @GetMapping("/list")
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    @ApiOperation("根据动作分类id查询动作")
-    public Result<List<ExerciseVO>> list(Long exerciseId){
+/**
+ * 根据动作分类id查询动作
+ * @param categoryId 分类ID
+ * @return 动作列表
+ */
+@GetMapping("/list")
+@ApiOperation("根据动作分类id查询动作")
+public Result<List<ExerciseVO>> list(Long categoryId){
+    log.info("根据动作分类id查询动作, 参数: {}", categoryId);
+    List<ExerciseVO> exerciseList = exerciseService.selectExercise(categoryId);
+    return Result.success(exerciseList);
+}
 
-        log.info("根据动作分类id查询动作, 参数: {}", exerciseId);
-        List<ExerciseVO> list = new ArrayList<>();
-        //查询数据库
-        Exercise exercise = new Exercise();
-        exercise.setCategoryId(exerciseId);
-        list = exerciseService.selectExercise(exercise);
-
-        return Result.success(list);
-    }
 
 }
