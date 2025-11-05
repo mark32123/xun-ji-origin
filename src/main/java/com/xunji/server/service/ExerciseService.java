@@ -62,4 +62,11 @@ public interface ExerciseService {
      * @param id
      */
     void startOrStop(Integer status, Long id);
+
+    /**
+     * user根据动作id获取动作详细信息
+     * @param id
+     * @return
+     */
+    ExerciseVO getInfoById(Long id);
 }

@@ -174,4 +174,14 @@ public class ExerciseServiceImpl implements ExerciseService {
         }
     }
 
+    /**
+     * user获取动作详细信息
+     * @param id
+     * @return
+     */
+    public ExerciseVO getInfoById(Long id) {
+        ExerciseVO exerciseVO = exerciseMapper.exerciseDetail(id);
+        return exerciseVO;
+    }
+
 }

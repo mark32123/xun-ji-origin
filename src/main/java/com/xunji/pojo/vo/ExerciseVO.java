@@ -22,4 +22,7 @@ public class ExerciseVO {
     private String image;
     //详细描述
     private String description;
+
+    private String techniquePoints; // 技术要点
+    private String precautions;    // 注意事项
 }

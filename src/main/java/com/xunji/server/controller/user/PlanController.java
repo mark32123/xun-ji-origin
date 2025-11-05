@@ -28,7 +28,7 @@ public class PlanController {
     private PlanService planService;
 
     /**
-     * 条件查询
+     * 根据分类id查询训练计划
      * @param categoryId
      * @return
      */

@@ -40,5 +40,18 @@ public Result<List<ExerciseVO>> list(Long categoryId){
     return Result.success(exerciseList);
 }
 
+    /**
+     * 根据动作id查看动作技术要点
+     * @param
+     * @return
+     */
+    @GetMapping("/detail")
+    @ApiOperation("根据动作id查看动作技术要点")
+    public Result<ExerciseVO> detail(Long id){
+        log.info("根据动作id查看动作技术要点, 参数: {}", id);
+        ExerciseVO exerciseVO = exerciseService.getInfoById(id);
+        return Result.success(exerciseVO);
+    }
+
 
 }

@@ -79,4 +79,11 @@ public interface ExerciseMapper {
     @Select("select * from exercise_action where id in (select exercise_id from plan_for_exercise where plan_id = #{id})")
     List<Exercise> listExercise(Long id);
 
+    /**
+     * user根据动作id查询动作详情
+     * @param id
+     * @return
+     */
+    @Select("select name,description,image,technique_points AS techniquePoints,precautions from exercise_action where id = #{id}")
+    ExerciseVO exerciseDetail(Long id);
 }
